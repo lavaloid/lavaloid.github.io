@@ -21,5 +21,6 @@ author: lavaloid
 
 url: "https://lavaloid.github.io"
 plugins:
+  - jekyll-feed
   - jekyll-sitemap
   - jekyll-redirect-from
