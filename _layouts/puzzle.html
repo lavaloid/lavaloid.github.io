@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<!-- stupid hack to get around jekyll limitations --!>
+<script>
+    document.title = "{{ page.puzzle_title }} | Lavaloid";
+</script>
+
+<h1>{{ page.puzzle_title }}</h1>
+
+<p><img src="/assets/images/puzzles/{{ page.image_link }}" style="max-width: 600px; width: 100%;"></p>
+
+<p><a href="{{ page.puzzle_link }}" class="button" target="_blank">Solve Puzzle</a></p>
+
+{{ content }}

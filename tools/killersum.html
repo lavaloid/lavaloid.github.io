@@ -1,0 +1,81 @@
+---
+layout: default
+title: Killer Sum Tool
+description: Find killer sudoku sum combinations.
+custom_js:
+- killersumtool
+- sumdb
+custom_css:
+- killersumtool
+redirect_from:
+- /sudoku/killersum.html
+nonavbar: true
+---
+<h1>Killer Sum Tool</h1>
+<p>Find <a href="https://en.wikipedia.org/wiki/Killer_sudoku">killer sudoku</a> or <a href="https://en.wikipedia.org/wiki/Kakuro">Kakuro</a> sum combinations.</p>
+
+<div class="tool-content">
+    <div class="control">
+    <b>Sum:</b> <input type="number" id="sum" min="0" step="1"
+            onfocus="this.previousValue = this.value"
+            onkeydown="this.previousValue = this.value"
+            oninput="validity.valid || (value = this.previousValue); showResult();"><br>
+    Min. sum: <input type="number" id="sum-min" min="0" step="1"
+            onfocus="this.previousValue = this.value"
+            onkeydown="this.previousValue = this.value"
+            oninput="validity.valid || (value = this.previousValue); showResult();"><br>
+    Max. sum: <input type="number" id="sum-max" min="0" step="1"
+            onfocus="this.previousValue = this.value"
+            onkeydown="this.previousValue = this.value"
+            oninput="validity.valid || (value = this.previousValue); showResult();"><br><br>
+
+    <b>Length:</b> <input type="number" id="length" min="0" step="1"
+            onfocus="this.previousValue = this.value"
+            onkeydown="this.previousValue = this.value"
+            oninput="validity.valid || (value = this.previousValue); showResult();"><br>
+    Min. len: <input type="number" id="len-min" min="0" step="1"
+            onfocus="this.previousValue = this.value"
+            onkeydown="this.previousValue = this.value"
+            oninput="validity.valid || (value = this.previousValue); showResult();"><br>
+    Max. len: <input type="number" id="len-max" min="0" step="1"
+            onfocus="this.previousValue = this.value"
+            onkeydown="this.previousValue = this.value"
+            oninput="validity.valid || (value = this.previousValue); showResult();"><br><br>
+
+    <b>Restrictions:</b>
+    <table style="align:center;" id="restrictions-table">
+        <tr style="font-weight:bold;">
+            <td></td> <td>Either</td> <td>Include</td> <td>Exclude</td>
+        </tr>
+        <!-- To be filled by the script below... -->
+    </table>
+    <script>
+        const tableRestrictions = document.getElementById("restrictions-table");
+
+        for (var i = 1; i <= 9; i++) {
+            tableRestrictions.innerHTML += `
+            <tr>
+                <td class="number">${i}</td>
+                <td><label class="restriction-label" for="restriction${i}n"><input type="radio" id="restriction${i}n" name="restriction${i}" value="n" onclick="showResult();" checked></label></td>
+                <td><label class="restriction-label" for="restriction${i}i"><input type="radio" id="restriction${i}i" name="restriction${i}" value="i" onclick="showResult();"></label></td>
+                <td><label class="restriction-label" for="restriction${i}e"><input type="radio" id="restriction${i}e" name="restriction${i}" value="e" onclick="showResult();"></label></td>
+            </tr>`
+        }
+    </script>
+
+    <br>
+    <b>Regex field</b> (for super specific queries)<br>
+    To match whole string, do <tt style="font-size: 16px;">^query$</tt>.<br>
+    <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" target="_blank">About JavaScript regex</a><br>
+    <textarea id="regex-field" name="regex-field" rows="8" cols="50" style="resize:none; font-size: 16px;"></textarea><br>
+    <a class="button" onclick="showResult();">Search with regex</a>
+    <a class="button" onclick="document.getElementById('regex-field').value=''; showResult();">Clear</a>
+
+    <p style="width:300px;">Full list of killer cage combinations can be found on <a href="https://en.wikipedia.org/wiki/Killer_sudoku#Cage_total_tables">Wikipedia page for Killer sudoku</a>.</p>
+
+    </div>
+
+    <div id="result" style="font-family:monospace; font-size:16px;">
+        <!-- This is where result will be shown... -->
+    </div>
+</div>

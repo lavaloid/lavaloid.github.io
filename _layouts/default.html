@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ page.title }} | Lavaloid</title>
+        <link rel="stylesheet" href="/assets/css/styles.css">
+        {% if layout.custom_css %}
+            {% for stylesheet in layout.custom_css %}
+                <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css">
+            {% endfor %}
+        {% endif %}
+        {% if page.custom_css %}
+            {% for stylesheet in page.custom_css %}
+                <link rel="stylesheet" href="/assets/css/{{ stylesheet }}.css">
+            {% endfor %}
+        {% endif %}
+        {% if page.custom_js %}
+            {% for js_file in page.custom_js %}
+                <script type="text/javascript" src="/assets/js/{{ js_file }}.js"></script>
+            {% endfor %}
+        {% endif %}
+        {% feed_meta %}
+        {% seo %}
+    </head>
+    <body>
+        {% if page.nonavbar %}
+            <style>
+                .content {
+                    margin-top: 80px;
+                }
+            </style>
+        {% else %}
+            {% include navigation.html %}
+        {% endif %}
+
+        <div class="content">
+        {{ content }}
+        </div>
+    </body>
+</html>

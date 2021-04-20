@@ -1,0 +1,25 @@
+---
+title: Puzzles
+custom_css:
+- puzzles
+---
+
+<h1>Puzzles</h1>
+
+<ul>
+    {% assign sorted = site.puzzles | sort: 'date' | reverse %}
+    {% for puzzle in sorted %}
+    <li>
+        <img src="/assets/images/puzzles/{{ puzzle.image_link }}">
+        <div class="info">
+            <h2><a href="{{ puzzle.url }}">{{ puzzle.puzzle_title }}</a></h2>
+            <p><a href="{{ puzzle.puzzle_link }}" class="button" target="_blank">Play</a> <span style="font-size:12px; color: #444444;">{{ puzzle.date | date_to_long_string }}</span></p>
+            <p><b>Tags:</b>
+            {% for tag in puzzle.tags %}
+                {{ tag }}
+            {% endfor %}
+            </p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

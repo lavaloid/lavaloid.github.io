@@ -1,0 +1,56 @@
+.tool-content {
+    display: flex;
+}
+
+.control {
+    flex: 50%;
+    height: 100%;
+}
+
+.result {
+    flex: 50%;
+    height: 100%;
+}
+
+td {
+    text-align: center;
+}
+
+.number {
+    text-align: right;
+    padding: 3px 10px;
+}
+
+.restriction-label {
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+/*  Table row/column highlighting
+    shamelessly stolen from: https://css-tricks.com/simple-css-row-column-highlighting/ */
+
+table {
+  overflow: hidden;
+}
+
+tr:hover {
+  background-color: #dddddd;
+}
+
+td, th {
+  position: relative;
+  padding: 3px;
+}
+
+td:hover::after,
+th:hover::after {
+  content: "";
+  position: absolute;
+  background-color: #eeeeee;
+  left: 0;
+  top: -5000px;
+  height: 10000px;
+  width: 100%;
+  z-index: -1;
+}

@@ -1,0 +1,25 @@
+collections:
+    puzzles:
+        output: true
+
+defaults:
+    - scope:
+        path: ""
+        type: "puzzles"
+      values:
+        layout: "puzzle"
+    - scope:
+        path: ""
+      values:
+        layout: "default"
+
+feed:
+  collections:
+    - puzzles
+
+author: lavaloid
+
+url: "https://lavaloid.github.io"
+plugins:
+  - jekyll-sitemap
+  - jekyll-redirect-from
