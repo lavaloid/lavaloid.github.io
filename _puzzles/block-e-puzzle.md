@@ -7,7 +7,11 @@ puzzle_link: https://git.io/J3dfu
 ---
 ## Rules
 
--   **Irregular sudoku rules apply.**  
-    Every row, column, and 9-cell region contains all digits from 1 to 9.
--   **Thermo rule applies.**  
-    Along a thermometer, digits strictly increase from bulb to end.
+-   **Normal heyawake rules apply.**  
+    * The numbers indicate how many shaded cells there are in a region.  
+    * Regions with no number may have any number of shaded cells.  
+    * Unshaded cells cannot stretch across more than two regions in a straight line.  
+    * Shaded cells cannot be connected orthogonally.  
+    * All unshaded cells must be connected orthogonally.  
+-   **Parity rule applies.**  
+    A region with an E or O must have an even or odd number of shaded cells respectively. An E region may have zero shaded cells.
