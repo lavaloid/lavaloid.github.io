@@ -1,7 +1,7 @@
 ---
 date: 27-01-2021
 puzzle_title: Cheryl's Sandwich Sudoku
-tags: sudoku mystery sandwich knowledge
+tags: sudoku knowledge mystery sandwich
 image_link: cheryl-sandwich-sudoku.png
 puzzle_link: https://git.io/Jtl1S
 ---

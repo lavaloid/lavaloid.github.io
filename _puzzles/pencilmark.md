@@ -1,9 +1,9 @@
 ---
-date: 26-02-2021
-puzzle_title: Cassiopeia
+date: 05-05-2021
+puzzle_title: please don't pencilmark the entire grid
 tags: sudoku killer thermo
-image_link: cassiopeia.png
-puzzle_link: https://f-puzzles.com/?id=ya5rxnxj
+image_link: pencilmark.png
+puzzle_link: https://f-puzzles.com/?id=ygjlcl6d
 ---
 ## Rules
 
