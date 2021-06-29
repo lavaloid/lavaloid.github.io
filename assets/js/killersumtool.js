@@ -1,9 +1,7 @@
 function showResult() {
     updateDisplay();
 
-    var sum = document.getElementById("sum").value;
-    var sumMinStr = document.getElementById("sum-min").value;
-    var sumMaxStr = document.getElementById("sum-max").value;
+    var sumStr = document.getElementById("sum").value;
 
     var length = document.getElementById("length").value;
     var lenMinStr = document.getElementById("len-min").value;
@@ -22,14 +20,8 @@ function showResult() {
         }
     }
 
-    var result = "";
-    var solutionCount = 0;
-    var digitCount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
     // If there is literally no restriction, we just return
     if (sum == ""
-            && sumMinStr == ""
-            && sumMaxStr == ""
             && length == ""
             && lenMinStr == ""
             && lenMaxStr == ""
@@ -39,17 +31,21 @@ function showResult() {
         return;
     }
 
-    // Parsing `sum` and `length`
-    var sumMin = 0; var sumMax = 0;
-    var lengthMin = 0; var lengthMax = 0;
+    var result = "";
+    var solutionCount = 0;
+    var digitCount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    if (sum == "") {
-        sumMin = sumMinStr == "" ? 1 : parseInt(sumMinStr);
-        sumMax = sumMaxStr == "" ? 45 : parseInt(sumMaxStr);
-    } else {
-        sumMin = parseInt(sum);
-        sumMax = parseInt(sum);
+    // Parsing `sum` and `length`
+    var sumList = [];
+    try {
+        sumList = parseSum(sumStr);
+    } catch (e) {
+        document.getElementById("error-msg").innerHTML = e;
+        document.getElementById("sum-error").style.display = "block";
+        return;
     }
+    document.getElementById("sum-error").style.display = "none";
+    var lengthMin = 0; var lengthMax = 0;
 
     if (length == "") {
         lengthMin = lenMinStr == "" ? 1 : parseInt(lenMinStr);
@@ -61,7 +57,8 @@ function showResult() {
 
     // - Check for candidates
     // - Count digits in candidates
-    for (var s = sumMin; s <= sumMax; s++) {
+    for (i in sumList) {
+        var s = sumList[i];
         for (var l = lengthMin; l <= lengthMax; l++) {
             if (!(l in sums[s])) continue;
 
@@ -135,17 +132,67 @@ function followsRestrictions(candidate, restriction, pattern) {
     return true;
 }
 
+// Outputs array from `start` (inclusive) to `end` (exclusive)
+function range(start, end) {
+  return new Array(end - start).fill().map((d, i) => i + start);
+}
+
+function isNum(c) {
+    return !isNaN(parseInt(c, 10))
+}
+
+function parseSum(input) {
+    // return all numbers from 1 to 45 if no number given
+    if (input === "") {
+        return range(1, 46);
+    }
+
+    var intervals = input.split(",");
+    var output = [];
+    for (i in intervals) {
+        var interval = intervals[i];
+        if (interval === "") continue;
+
+        var intervalSplit = interval.split("-");
+        if (intervalSplit.length > 2) {
+            throw interval + ": At most one dash (-) allowed.";
+        }
+
+        const rangeErr = " is out of valid range (1 to 45).";
+        const invalidInterval = " is not a valid interval.";
+
+        // Case: single number
+        if (intervalSplit.length == 1) {
+            var newSum = parseInt(interval);
+            if (newSum < 1 || newSum > 45)
+                throw "Number " + newSum + rangeErr;
+            output.push(newSum);
+            continue;
+        }
+
+        // Case: interval
+        if (intervalSplit[0] === "" || intervalSplit[1] === "")
+            throw interval + invalidInterval;
+        var newMin = parseInt(intervalSplit[0]);
+        if (newMin < 1 || newMin > 45)
+            throw "Interval " + interval + rangeErr;
+        var newMax = parseInt(intervalSplit[1]);
+        if (newMax < 1 || newMax > 45)
+            throw "Interval " + interval + rangeErr;
+
+        if (newMin >= newMax)
+            throw interval + invalidInterval;
+
+        output = output.concat(range(newMin, newMax + 1));
+    }
+
+    return [... new Set(output)].sort(function(a, b) {
+        return parseInt(a) - parseInt(b);
+    }); // Return only unique numbers
+}
+
 function updateDisplay() {
     const disabledBackgroundColor = "#eeeeee";
-
-    var sum = document.getElementById("sum").value;
-    if (sum == "") {
-        document.getElementById("sum-min").style.backgroundColor = "white";
-        document.getElementById("sum-max").style.backgroundColor = "white";
-    } else {
-        document.getElementById("sum-min").style.backgroundColor = disabledBackgroundColor;
-        document.getElementById("sum-max").style.backgroundColor = disabledBackgroundColor;
-    }
 
     var length = document.getElementById("length").value;
     if (length == "") {
@@ -171,4 +218,13 @@ function generateString(src) {
     result += src;
     result += "<br>";
     return result;
+}
+
+function toggleHelp() {
+    helpDiv = document.getElementById("help-text");
+    if (helpDiv.style.display === "none") {
+        helpDiv.style.display = "block";
+    } else {
+        helpDiv.style.display = "none";
+    }
 }

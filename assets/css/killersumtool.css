@@ -1,3 +1,9 @@
+tt {
+    font-size: 16px;
+}
+
+@media only screen and (min-device-width: 600px) {
+
 .tool-content {
     display: flex;
 }
@@ -10,6 +16,8 @@
 .result {
     flex: 50%;
     height: 100%;
+}
+
 }
 
 td {
@@ -25,6 +33,14 @@ td {
     display: block;
     min-width: 100%;
     min-height: 100%;
+}
+
+#help-text {
+    display: none;
+    border-radius: 5px;
+    background-color: #dddddd;
+    padding: 10px 20px;
+    margin: 10px 0px;
 }
 
 /*  Table row/column highlighting

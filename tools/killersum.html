@@ -16,18 +16,24 @@ nonavbar: true
 
 <div class="tool-content">
     <div class="control">
-    <b>Sum:</b> <input type="number" id="sum" min="0" step="1"
-            onfocus="this.previousValue = this.value"
-            onkeydown="this.previousValue = this.value"
-            oninput="validity.valid || (value = this.previousValue); showResult();"><br>
-    Min. sum: <input type="number" id="sum-min" min="0" step="1"
-            onfocus="this.previousValue = this.value"
-            onkeydown="this.previousValue = this.value"
-            oninput="validity.valid || (value = this.previousValue); showResult();"><br>
-    Max. sum: <input type="number" id="sum-max" min="0" step="1"
-            onfocus="this.previousValue = this.value"
-            onkeydown="this.previousValue = this.value"
-            oninput="validity.valid || (value = this.previousValue); showResult();"><br><br>
+    <b>Sum:</b> <input type="text" id="sum" oninput="this.value = this.value.replace(/[^0-9\-\,]/, ''); showResult();">
+    <button id="help" name="help" type="button" onclick="toggleHelp();">Help</button>
+    <div id="help-text">
+        Input must be a list of numbers or intervals separated by comma. Examples:
+        <ul>
+            <li><tt>15</tt></li>
+            <li><tt>7-12</tt></li>
+            <li><tt>1,4,9,16,25</tt></li>
+            <li><tt>5-10,23-27,29-30</tt></li>
+            <li><tt>4,10-15,17,19-25</tt></li>
+        </ul>
+    </div>
+    <br>
+    <span id="sum-error" style="display:none; color:red; line-height:24px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/OOjs_UI_icon_error-destructive.svg"
+            style="display:inline-block; vertical-align:middle;">
+        <span id="error-msg" style="display:inline-block; vertical-align:middle;">Unable to parse sum.</span><br></span>
+    <br>
 
     <b>Length:</b> <input type="number" id="length" min="0" step="1"
             onfocus="this.previousValue = this.value"
@@ -65,9 +71,9 @@ nonavbar: true
 
     <br>
     <b>Regex field</b> (for super specific queries)<br>
-    To match whole string, do <tt style="font-size: 16px;">^query$</tt>.<br>
+    To match whole string, do <tt>^query$</tt>.<br>
     <a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" target="_blank">About JavaScript regex</a><br>
-    <textarea id="regex-field" name="regex-field" rows="8" cols="50" style="resize:none; font-size: 16px;"></textarea><br>
+    <textarea id="regex-field" name="regex-field" rows="8" cols="50" style="resize:none; font-size: 16px; width: 60vw;"></textarea><br>
     <a class="button" onclick="showResult();">Search with regex</a>
     <a class="button" onclick="document.getElementById('regex-field').value=''; showResult();">Clear</a>
 
