@@ -13,8 +13,10 @@ li {
 li img {
     margin-right: 20px;
     float: left;
-    height: 150px;
-    width: 150px;
+    max-height: 150px;
+    max-width: 150px;
+    width: auto;
+    height: auto;
 }
 
 li .info * {
