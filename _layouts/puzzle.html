@@ -10,6 +10,7 @@ layout: default
 
 <p><img src="/assets/images/puzzles/{{ page.image_link }}" style="max-width: 600px; width: 100%;"></p>
 
-<p><a href="{{ page.puzzle_link }}" class="button" target="_blank">Solve Puzzle</a></p>
-
+{% if page.puzzle_link And page.puzzle_link != "" And page.puzzle_link != nil %}
+    <p><a href="{{ page.puzzle_link }}" class="button" target="_blank">Solve Puzzle</a></p>
+{% endif %}
 {{ content }}

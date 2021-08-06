@@ -13,7 +13,12 @@ custom_css:
         <img src="/assets/images/puzzles/{{ puzzle.image_link }}">
         <div class="info">
             <h2><a href="{{ puzzle.url }}">{{ puzzle.puzzle_title }}</a></h2>
-            <p><a href="{{ puzzle.puzzle_link }}" class="button" target="_blank">Play</a> <span style="font-size:12px; color: #444444;">{{ puzzle.date | date_to_long_string }}</span></p>
+
+            <p>
+            {% if puzzle.puzzle_link And puzzle.puzzle_link != "" And puzzle.puzzle_link != nil %}
+                <a href="{{ puzzle.puzzle_link }}" class="button" target="_blank">Play</a>
+            {% endif %}
+            <span style="font-size:12px; color: #444444;">{{ puzzle.date | date_to_long_string }}</span></p>
             <p><b>Tags:</b>
             {% for tag in puzzle.tags %}
                 {{ tag }}
